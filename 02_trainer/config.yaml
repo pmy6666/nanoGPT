@@ -1,0 +1,187 @@
+# Central trainer config. Keep it simple so the built-in loader can parse it.
+
+stage1_minimal_train:
+  gpt:
+    vocab_size: 0
+    block_size: 128
+    n_layer: 4
+    n_head: 4
+    n_embd: 128
+    dropout: 0.1
+    attention_impl: "manual"
+    gradient_checkpointing: false
+  train:
+    batch_size: 16
+    max_steps: 200
+    eval_interval: 50
+    eval_iters: 20
+    learning_rate: 0.0003
+    weight_decay: 0.01
+    warmup_steps: 20
+    min_lr_ratio: 0.1
+    grad_clip: 1.0
+
+stage2_amp_train:
+  gpt:
+    vocab_size: 0
+    block_size: 128
+    n_layer: 4
+    n_head: 4
+    n_embd: 128
+    dropout: 0.1
+    attention_impl: "manual"
+    gradient_checkpointing: false
+  train:
+    batch_size: 24
+    max_steps: 200
+    eval_interval: 50
+    eval_iters: 20
+    learning_rate: 0.0003
+    weight_decay: 0.01
+    warmup_steps: 20
+    min_lr_ratio: 0.1
+    grad_clip: 1.0
+    device: "cuda"
+
+stage2_grad_accum_train:
+  gpt:
+    vocab_size: 0
+    block_size: 128
+    n_layer: 4
+    n_head: 4
+    n_embd: 128
+    dropout: 0.1
+    attention_impl: "manual"
+    gradient_checkpointing: false
+  train:
+    batch_size: 8
+    max_steps: 200
+    eval_interval: 50
+    eval_iters: 20
+    learning_rate: 0.0003
+    weight_decay: 0.01
+    warmup_steps: 20
+    min_lr_ratio: 0.1
+    grad_clip: 1.0
+  extras:
+    grad_accum_steps: 4
+
+stage2_activation_checkpoint_train:
+  gpt:
+    vocab_size: 0
+    block_size: 128
+    n_layer: 6
+    n_head: 4
+    n_embd: 192
+    dropout: 0.1
+    attention_impl: "manual"
+    gradient_checkpointing: true
+  train:
+    batch_size: 12
+    max_steps: 200
+    eval_interval: 50
+    eval_iters: 20
+    learning_rate: 0.0003
+    weight_decay: 0.01
+    warmup_steps: 20
+    min_lr_ratio: 0.1
+    grad_clip: 1.0
+
+stage2_flash_attention_sdpa_train:
+  gpt:
+    vocab_size: 0
+    block_size: 128
+    n_layer: 4
+    n_head: 4
+    n_embd: 128
+    dropout: 0.1
+    attention_impl: "sdpa"
+    gradient_checkpointing: false
+  train:
+    batch_size: 16
+    max_steps: 200
+    eval_interval: 50
+    eval_iters: 20
+    learning_rate: 0.0003
+    weight_decay: 0.01
+    warmup_steps: 20
+    min_lr_ratio: 0.1
+    grad_clip: 1.0
+
+stage3_hf_trainer_style:
+  gpt:
+    vocab_size: 0
+    block_size: 128
+    n_layer: 4
+    n_head: 4
+    n_embd: 128
+    dropout: 0.1
+    attention_impl: "manual"
+    gradient_checkpointing: false
+  train:
+    batch_size: 16
+    max_steps: 200
+    learning_rate: 0.0003
+    weight_decay: 0.01
+    warmup_steps: 20
+  extras:
+    save_steps: 50
+    logging_steps: 10
+    eval_steps: 50
+
+stage3_accelerate_style:
+  gpt:
+    vocab_size: 0
+    block_size: 128
+    n_layer: 4
+    n_head: 4
+    n_embd: 128
+    dropout: 0.1
+    attention_impl: "manual"
+    gradient_checkpointing: false
+  train:
+    batch_size: 16
+    max_steps: 200
+    learning_rate: 0.0003
+    weight_decay: 0.01
+    grad_clip: 1.0
+  extras:
+    grad_accum_steps: 4
+
+stage3_deepspeed_style:
+  gpt:
+    vocab_size: 0
+    block_size: 128
+    n_layer: 4
+    n_head: 4
+    n_embd: 128
+    dropout: 0.1
+    attention_impl: "manual"
+    gradient_checkpointing: false
+  train:
+    batch_size: 8
+    max_steps: 200
+    learning_rate: 0.0003
+    weight_decay: 0.01
+    grad_clip: 1.0
+  extras:
+    grad_accum_steps: 4
+    bf16_enabled: true
+    zero_stage: 2
+
+stage3_fsdp_style:
+  gpt:
+    vocab_size: 0
+    block_size: 128
+    n_layer: 4
+    n_head: 4
+    n_embd: 128
+    dropout: 0.1
+    attention_impl: "manual"
+    gradient_checkpointing: false
+  train:
+    batch_size: 8
+    max_steps: 200
+    learning_rate: 0.0003
+    weight_decay: 0.01
+    grad_clip: 1.0

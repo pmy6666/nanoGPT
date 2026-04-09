@@ -1,0 +1,13 @@
+10.788929 M parameters
+step 0: train loss 4.2221, val loss 4.2305
+step 500: train loss 1.9607, val loss 2.0749
+step 1000: train loss 1.4511, val loss 1.6481
+step 1500: train loss 1.3049, val loss 1.5473
+step 2000: train loss 1.2149, val loss 1.5073
+step 2500: train loss 1.1500, val loss 1.4933
+step 3000: train loss 1.1018, val loss 1.4844
+step 3500: train loss 1.0529, val loss 1.4946
+step 4000: train loss 0.9970, val loss 1.4988
+step 4500: train loss 0.9528, val loss 1.5223
+hello worlds much my legs; but it but I know;
+Therefore to accord my suit: I will not stay.

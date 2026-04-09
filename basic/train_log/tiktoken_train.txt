@@ -1,0 +1,27 @@
+49.386577 M parameters
+step 0: train loss 10.9611, val loss 10.9754
+step 500: train loss 3.4610, val loss 4.8179
+step 1000: train loss 1.8855, val loss 5.6258
+step 1500: train loss 0.7446, val loss 6.7039
+step 2000: train loss 0.3209, val loss 7.5582
+step 2500: train loss 0.1983, val loss 8.1988
+step 3000: train loss 0.1551, val loss 8.5921
+step 3500: train loss 0.1327, val loss 8.9693
+step 4000: train loss 0.1220, val loss 9.1995
+step 4500: train loss 0.1135, val loss 9.4732
+Hello world, sweet, but vain shut
+Not like me, unless you.
+If he in a man, now a beast.
+Come, gentle Romeo think upon the door?
+
+ follow.
+JULIET:
+O haste;
+Things have made me tremble.
+Rome half anon! Where's wearing up, and me speak!
+
+FRIAR LAURENCE:
+O, then,Where is he?
+
+ROMEO:
+LADY
