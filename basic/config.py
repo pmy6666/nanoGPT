@@ -1,7 +1,5 @@
 from dataclasses import dataclass
 
-import torch
-
 
 @dataclass
 class GPTConfig:
@@ -27,3 +25,5 @@ class GPTConfig:
     sample_prompt: str = "Hello world"
     sample_tokens: int = 100
     use_flash: bool = True      # use flash attention
+    norm_type: str = "layernorm"
+    norm_eps: float = 1e-5

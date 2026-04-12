@@ -3,6 +3,15 @@ import torch.nn as nn
 from torch.nn import functional as F
 
 
+def build_norm(norm_type, dim, eps=1e-5):
+    norm_type = norm_type.lower()
+    if norm_type == "layernorm":
+        return nn.LayerNorm(dim, eps=eps)
+    if norm_type == "rmsnorm":
+        return nn.RMSNorm(dim, eps=eps)
+    raise ValueError(f"Unsupported normalization type: {norm_type}")
+
+
 class CausalSelfAttention(nn.Module):
 
     def __init__(self, n_embd, n_head):
@@ -84,14 +93,23 @@ class FeedForward(nn.Module):
 
 
 class Block(nn.Module):
-    def __init__(self, n_embd, n_head, block_size, dropout, use_flash=False):
+    def __init__(
+        self,
+        n_embd,
+        n_head,
+        block_size,
+        dropout,
+        use_flash=False,
+        norm_type="layernorm",
+        norm_eps=1e-5,
+    ):
         super().__init__()
         head_size = n_embd // n_head
         self.sa = MultiHeadAttention(n_embd, n_head, head_size, block_size, dropout)
         self.atten = CausalSelfAttention(n_embd, n_head)
         self.ffwd = FeedForward(n_embd, dropout)
-        self.ln1 = nn.LayerNorm(n_embd)
-        self.ln2 = nn.LayerNorm(n_embd)
+        self.ln1 = build_norm(norm_type, n_embd, eps=norm_eps)
+        self.ln2 = build_norm(norm_type, n_embd, eps=norm_eps)
         self.use_flash = use_flash
 
     def forward(self, x):
@@ -117,11 +135,13 @@ class GPTLanguageModel(nn.Module):
                     config.block_size,
                     config.dropout,
                     use_flash=config.use_flash,
+                    norm_type=config.norm_type,
+                    norm_eps=config.norm_eps,
                 )
                 for _ in range(config.n_layer)
             ]
         )
-        self.ln_f = nn.LayerNorm(config.n_embd)
+        self.ln_f = build_norm(config.norm_type, config.n_embd, eps=config.norm_eps)
         self.head = nn.Linear(config.n_embd, vocab_size)
         self.apply(self._init_weights)
 
